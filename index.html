@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MyRepublic | Pendaftaran Pemasangan Fiber Optik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c1f 0%, #1a0b2e 50%, #0a0518 100%);
+            position: relative;
+            padding: 1.5rem 1rem;
+        }
+
+        /* Fiber optic pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 20%, rgba(156, 39, 176, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 70% 80%, rgba(103, 58, 183, 0.06) 1px, transparent 1px),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 10px);
+            background-size: 30px 30px, 40px 40px, auto;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #9C27B0, #6a1b9a);
+            width: 48px;
+            height: 48px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+        }
+
+        .logo-icon i {
+            font-size: 28px;
+            color: white;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #ce93d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .tagline {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 1px;
+        }
+
+        .header .title-card {
+            background: linear-gradient(95deg, #9C27B0, #7b1fa2);
+            padding: 1rem;
+            border-radius: 16px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .header .title-card h2 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .header .title-card p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.75rem;
+            margin-top: 4px;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ce93d8;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .form-group label i {
+            font-size: 0.8rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(10, 5, 25, 0.7);
+            border: 1px solid rgba(156, 39, 176, 0.4);
+            border-radius: 14px;
+            padding: 12px 14px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: white;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #9C27B0;
+            box-shadow: 0 0 8px rgba(156, 39, 176, 0.4);
+            background: rgba(20, 10, 40, 0.9);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.75rem;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        /* Camera Button */
+        .camera-area {
+            margin-top: 6px;
+        }
+
+        .camera-btn {
+            width: 100%;
+            background: rgba(156, 39, 176, 0.2);
+            border: 1.5px dashed #9C27B0;
+            border-radius: 14px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #ce93d8;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .camera-btn:hover {
+            background: rgba(156, 39, 176, 0.35);
+            border-color: #e1a0f0;
+            color: white;
+        }
+
+        .camera-btn i {
+            font-size: 1.1rem;
+        }
+
+        .file-name {
+            font-size: 0.65rem;
+            color: rgba(206, 147, 216, 0.7);
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .photo-preview {
+            margin-top: 8px;
+            width: 100%;
+            max-height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            display: none;
+        }
+
+        .photo-preview.show {
+            display: block;
+        }
+
+        /* Location Button */
+        .location-btn {
+            width: 100%;
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid #42a5f5;
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #90caf9;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .location-btn:hover {
+            background: rgba(33, 150, 243, 0.35);
+            color: white;
+        }
+
+        .location-info {
+            font-size: 0.65rem;
+            color: #90caf9;
+            margin-top: 6px;
+            text-align: center;
+            word-break: break-all;
+        }
+
+        .location-info a {
+            color: #ce93d8;
+            text-decoration: none;
+        }
+
+        /* Photo Grid for 4 photos */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .photo-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 16px;
+            padding: 0.5rem;
+        }
+
+        .photo-label {
+            font-size: 0.65rem;
+            color: #ce93d8;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .photo-label i {
+            font-size: 0.7rem;
+        }
+
+        .example-hint {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(95deg, #9C27B0, #6a1b9a);
+            border: none;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: linear-gradient(95deg, #b43bcb, #7b1fa2);
+            transform: scale(1.01);
+            box-shadow: 0 0 12px #9C27B0;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Progress */
+        .progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #9C27B0, #e1a0f0);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        /* Toast */
+        .toast-notif {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1a0b2e;
+            backdrop-filter: blur(15px);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 500;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border-left: 4px solid #9C27B0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .toast-notif.show {
+            opacity: 1;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Uppercase except email */
+        input:not(#email), textarea {
+            text-transform: uppercase;
+        }
+        #email {
+            text-transform: lowercase;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-cloud-upload-alt"></i>
+            </div>
+            <h1>MyRepublic</h1>
+        </div>
+        <div class="tagline">FIBER OPTIC | INTERNET SUPER CEPAT</div>
+        <div class="title-card">
+            <h2>FORM PENDAFTARAN PEMASANGAN</h2>
+            <p>Internet Fiber Super Cepat untuk Rumah Anda</p>
+        </div>
+    </div>
+
+    <div class="form-card">
+        <form id="registrationForm">
+            <div class="form-group">
+                <label><i class="fas fa-id-card"></i> NAMA LENGKAP (SESUAI KTP)</label>
+                <input type="text" id="nama" name="nama" placeholder="NAMA LENGKAP SESUAI KTP" required oninput="this.value = this.value.toUpperCase()">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-map-marker-alt"></i> ALAMAT PEMASANGAN (HURUF KAPITAL)</label>
+                <textarea id="alamat" name="alamat" rows="2" placeholder="JL. CONTOH NO. 1, RT 001/RW 002, KELURAHAN, KECAMATAN, KOTA" required oninput="this.value = this.value.toUpperCase()"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-phone-alt"></i> NOMOR HP</label>
+                <input type="tel" id="nohp" name="nohp" placeholder="08xxxxxxxxx" required oninput="this.value = this.value.toUpperCase()">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> GMAIL / EMAIL</label>
+                <input type="email" id="email" name="email" placeholder="nama@gmail.com" required oninput="this.value = this.value.toLowerCase()">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-qrcode"></i> NIK KTP</label>
+                <input type="text" id="nik" name="nik" placeholder="16 digit NIK sesuai KTP" maxlength="16" required oninput="this.value = this.value.toUpperCase()">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-map-pin"></i> LOKASI TERKINI</label>
+                <button type="button" class="location-btn" id="getLocationBtn">
+                    <i class="fas fa-crosshairs"></i> Ambil Lokasi Terkini
+                </button>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <div class="location-info" id="locationInfo">📍 Belum mengambil lokasi</div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-images"></i> FOTO RUMAH</label>
+                <div class="photo-grid">
+                    <div class="photo-item">
+                        <div class="photo-label"><i class="fas fa-home"></i> TAMPAK DEPAN</div>
+                        <button type="button" class="camera-btn" data-target="fotoDepan" style="padding: 10px;">
+                            <i class="fas fa-camera"></i> Ketuk untuk buka kamera
+                        </button>
+                        <input type="file" id="fotoDepan" name="foto_depan" accept="image/*" capture="environment" style="display:none" required>
+                        <div class="file-name" id="depanFileName">Belum mengambil foto</div>
+                        <img class="photo-preview" id="depanPreview">
+                    </div>
+
+                    <div class="photo-item">
+                        <div class="photo-label"><i class="fas fa-arrow-left"></i> SERONG KIRI</div>
+                        <button type="button" class="camera-btn" data-target="fotoKiri" style="padding: 10px;">
+                            <i class="fas fa-camera"></i> Ketuk untuk buka kamera
+                        </button>
+                        <input type="file" id="fotoKiri" name="foto_kiri" accept="image/*" capture="environment" style="display:none" required>
+                        <div class="file-name" id="kiriFileName">Belum mengambil foto</div>
+                        <img class="photo-preview" id="kiriPreview">
+                    </div>
+
+                    <div class="photo-item">
+                        <div class="photo-label"><i class="fas fa-arrow-right"></i> SERONG KANAN</div>
+                        <button type="button" class="camera-btn" data-target="fotoKanan" style="padding: 10px;">
+                            <i class="fas fa-camera"></i> Ketuk untuk buka kamera
+                        </button>
+                        <input type="file" id="fotoKanan" name="foto_kanan" accept="image/*" capture="environment" style="display:none" required>
+                        <div class="file-name" id="kananFileName">Belum mengambil foto</div>
+                        <img class="photo-preview" id="kananPreview">
+                    </div>
+
+                    <div class="photo-item">
+                        <div class="photo-label"><i class="fas fa-bolt"></i> METERAN LISTRIK</div>
+                        <button type="button" class="camera-btn" data-target="fotoMeter" style="padding: 10px;">
+                            <i class="fas fa-camera"></i> Ketuk untuk buka kamera
+                        </button>
+                        <input type="file" id="fotoMeter" name="foto_meter" accept="image/*" capture="environment" style="display:none" required>
+                        <div class="file-name" id="meterFileName">Belum mengambil foto</div>
+                        <img class="photo-preview" id="meterPreview">
+                    </div>
+                </div>
+                <div class="example-hint">
+                    <i class="fas fa-upload"></i> [Lahat Contoh] - Ketuk tombol kamera untuk mengambil foto langsung
+                </div>
+            </div>
+
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <i class="fab fa-telegram-plane"></i> Kirim Pendaftaran
+            </button>
+        </form>
+    </div>
+    <footer>© MyRepublic Indonesia • Layanan Fiber Optic • Data Anda Aman</footer>
+</div>
+
+<div id="toastMsg" class="toast-notif"><i class="fas fa-check-circle"></i> <span id="toastText">Berhasil!</span></div>
+
+<script>
+    // Camera buttons
+    document.querySelectorAll('.camera-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            document.getElementById(targetId).click();
+        });
+    });
+
+    function handleFileSelect(inputId, previewId, fileNameId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const fileNameSpan = document.getElementById(fileNameId);
+        
+        input.addEventListener('change', () => {
+            if(input.files.length > 0) {
+                const file = input.files[0];
+                fileNameSpan.innerText = file.name.length > 25 ? file.name.substring(0, 22) + "..." : file.name;
+                
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    preview.src = e.target.result;
+                    preview.classList.add('show');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+
+    handleFileSelect('fotoDepan', 'depanPreview', 'depanFileName');
+    handleFileSelect('fotoKiri', 'kiriPreview', 'kiriFileName');
+    handleFileSelect('fotoKanan', 'kananPreview', 'kananFileName');
+    handleFileSelect('fotoMeter', 'meterPreview', 'meterFileName');
+
+    // Location
+    let currentLat = null, currentLng = null;
+    
+    document.getElementById('getLocationBtn').addEventListener('click', () => {
+        if (!navigator.geolocation) {
+            showToast("❌ Browser tidak support geolokasi", true);
+            return;
+        }
+        
+        showToast("📡 Mengambil lokasi...");
+        
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                currentLat = position.coords.latitude;
+                currentLng = position.coords.longitude;
+                document.getElementById('latitude').value = currentLat;
+                document.getElementById('longitude').value = currentLng;
+                
+                const mapsLink = `https://www.google.com/maps?q=${currentLat},${currentLng}`;
+                document.getElementById('locationInfo').innerHTML = `📍 <strong>${currentLat}, ${currentLng}</strong><br>🗺 <a href="${mapsLink}" target="_blank">Buka di Google Maps</a>`;
+                showToast("✅ Lokasi berhasil diambil!");
+            },
+            (error) => {
+                let errorMsg = "Gagal mengambil lokasi";
+                if(error.code === 1) errorMsg = "Akses lokasi ditolak";
+                if(error.code === 2) errorMsg = "Lokasi tidak tersedia";
+                if(error.code === 3) errorMsg = "Timeout";
+                showToast(`❌ ${errorMsg}`, true);
+                document.getElementById('locationInfo').innerHTML = "⚠️ Gagal mengambil lokasi, coba lagi";
+            },
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    });
+
+    function validateForm() {
+        const nama = document.getElementById('nama').value.trim();
+        const alamat = document.getElementById('alamat').value.trim();
+        const nohp = document.getElementById('nohp').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const nik = document.getElementById('nik').value.trim();
+        const lat = document.getElementById('latitude').value;
+        const lng = document.getElementById('longitude').value;
+        const fotoDepan = document.getElementById('fotoDepan').files.length;
+        const fotoKiri = document.getElementById('fotoKiri').files.length;
+        const fotoKanan = document.getElementById('fotoKanan').files.length;
+        const fotoMeter = document.getElementById('fotoMeter').files.length;
+
+        if(!nama || !alamat || !nohp || !email || !nik) {
+            showToast("⚠️ Semua field harus diisi!", true);
+            return false;
+        }
+        if(!/^\S+@\S+\.\S+$/.test(email)) {
+            showToast("Email tidak valid!", true);
+            return false;
+        }
+        if(nohp.length < 9) {
+            showToast("Nomor HP tidak valid!", true);
+            return false;
+        }
+        if(nik.length !== 16 || isNaN(nik)) {
+            showToast("NIK KTP harus 16 digit angka!", true);
+            return false;
+        }
+        if(!lat || !lng) {
+            showToast("Harap ambil lokasi terlebih dahulu!", true);
+            return false;
+        }
+        if(fotoDepan === 0 || fotoKiri === 0 || fotoKanan === 0 || fotoMeter === 0) {
+            showToast("Harap ambil keempat foto menggunakan kamera!", true);
+            return false;
+        }
+        return true;
+    }
+
+    function showToast(msg, isError = false) {
+        const toast = document.getElementById('toastMsg');
+        const textSpan = document.getElementById('toastText');
+        textSpan.innerText = msg;
+        if(isError) {
+            toast.style.borderLeftColor = "#ff4d4d";
+            toast.querySelector('i').className = "fas fa-exclamation-triangle";
+        } else {
+            toast.style.borderLeftColor = "#9C27B0";
+            toast.querySelector('i').className = "fas fa-check-circle";
+        }
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
+
+    const form = document.getElementById('registrationForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if(!validateForm()) return;
+
+        const submitBtn = document.querySelector('.submit-btn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Mengirim...';
+        submitBtn.disabled = true;
+        progressBar.classList.add('active');
+        
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress = Math.min(progress + 10, 90);
+            progressFill.style.width = progress + '%';
+        }, 200);
+
+        try {
+            const formData = new FormData(form);
+            
+            const response = await fetch('/.netlify/functions/submit', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if(result.success) {
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    showToast("✅ Pendaftaran berhasil! Admin akan menghubungi Anda.");
+                    form.reset();
+                    document.getElementById('locationInfo').innerHTML = "📍 Belum mengambil lokasi";
+                    document.getElementById('latitude').value = "";
+                    document.getElementById('longitude').value = "";
+                    ['depanFileName','kiriFileName','kananFileName','meterFileName'].forEach(id => 
+                        document.getElementById(id).innerText = "Belum mengambil foto");
+                    ['depanPreview','kiriPreview','kananPreview','meterPreview'].forEach(id => {
+                        const img = document.getElementById(id);
+                        img.classList.remove('show');
+                        img.src = "";
+                    });
+                }, 500);
+            } else {
+                throw new Error(result.message || 'Gagal mengirim');
+            }
+        } catch(err) {
+            console.error(err);
+            showToast("❌ Gagal mengirim pendaftaran. Silakan coba lagi.", true);
+        } finally {
+            clearInterval(interval);
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                progressBar.classList.remove('active');
+                progressFill.style.width = '0%';
+            }, 1000);
+        }
+    });
+</script>
+</body>
+</html>
