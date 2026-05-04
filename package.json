@@ -1,9 +1,0 @@
-{
-  "name": "myrepublic-netlify",
-  "version": "1.0.0",
-  "dependencies": {
-    "node-fetch": "^2.7.0",
-    "busboy": "^1.6.0",
-    "form-data": "^4.0.0"
-  }
-}
