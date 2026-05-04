@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MyRepublic | Pendaftaran Pemasangan Fiber Optik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', 'Inter', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f0c1f 0%, #1a0b2e 50%, #0a0518 100%);
+            padding: 1.5rem 1rem;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle at 30% 20%, rgba(156,39,176,0.08) 1px, transparent 1px),
+                              radial-gradient(circle at 70% 80%, rgba(103,58,183,0.06) 1px, transparent 1px);
+            background-size: 30px 30px, 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .container { max-width: 500px; margin: 0 auto; position: relative; z-index: 2; }
+        .header { text-align: center; margin-bottom: 1.5rem; }
+        .logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 0.5rem; }
+        .logo-icon { background: linear-gradient(135deg, #9C27B0, #6a1b9a); width: 48px; height: 48px; border-radius: 24px; display: flex; align-items: center; justify-content: center; }
+        .logo-icon i { font-size: 28px; color: white; }
+        .logo h1 { font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, #fff, #ce93d8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header .tagline { font-size: 0.8rem; color: rgba(255,255,255,0.7); }
+        .header .title-card { background: linear-gradient(95deg, #9C27B0, #7b1fa2); padding: 1rem; border-radius: 16px; margin-top: 1rem; text-align: center; }
+        .header .title-card h2 { color: white; font-size: 1rem; }
+        .header .title-card p { color: rgba(255,255,255,0.8); font-size: 0.75rem; }
+        .form-card { background: rgba(255,255,255,0.08); backdrop-filter: blur(12px); border-radius: 24px; padding: 1.5rem; border: 1px solid rgba(156,39,176,0.3); }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; color: #ce93d8; margin-bottom: 6px; }
+        .form-group input, .form-group textarea { width: 100%; background: rgba(10,5,25,0.7); border: 1px solid rgba(156,39,176,0.4); border-radius: 14px; padding: 12px 14px; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: white; outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #9C27B0; box-shadow: 0 0 8px rgba(156,39,176,0.4); }
+        .camera-btn, .location-btn { width: 100%; background: rgba(156,39,176,0.2); border: 1.5px dashed #9C27B0; border-radius: 14px; padding: 12px; display: flex; align-items: center; justify-content: center; gap: 10px; color: #ce93d8; font-size: 0.85rem; cursor: pointer; transition: all 0.2s; }
+        .camera-btn:hover, .location-btn:hover { background: rgba(156,39,176,0.35); color: white; }
+        .location-btn { background: rgba(33,150,243,0.2); border-color: #42a5f5; color: #90caf9; }
+        .location-btn:hover { background: rgba(33,150,243,0.35); }
+        .file-name { font-size: 0.65rem; color: rgba(206,147,216,0.7); margin-top: 6px; text-align: center; word-break: break-all; }
+        .photo-preview { margin-top: 8px; width: 100%; max-height: 120px; border-radius: 12px; object-fit: cover; display: none; }
+        .photo-preview.show { display: block; }
+        .location-info { font-size: 0.65rem; color: #90caf9; margin-top: 6px; text-align: center; }
+        .location-info a { color: #ce93d8; }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.5rem; }
+        .photo-item { background: rgba(0,0,0,0.2); border-radius: 16px; padding: 0.5rem; }
+        .photo-label { font-size: 0.65rem; color: #ce93d8; margin-bottom: 6px; display: flex; gap: 4px; align-items: center; }
+        .example-hint { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-align: center; margin-top: 8px; }
+        .submit-btn { width: 100%; background: linear-gradient(95deg, #9C27B0, #6a1b9a); border: none; padding: 14px; border-radius: 30px; font-weight: 700; font-size: 1rem; color: white; margin-top: 0.5rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .submit-btn:hover:not(:disabled) { background: linear-gradient(95deg, #b43bcb, #7b1fa2); transform: scale(1.01); box-shadow: 0 0 12px #9C27B0; }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .progress-bar { width: 100%; height: 3px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 1rem; overflow: hidden; display: none; }
+        .progress-bar.active { display: block; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #9C27B0, #e1a0f0); transition: width 0.3s; }
+        .toast-notif { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1a0b2e; backdrop-filter: blur(15px); color: #fff; padding: 10px 20px; border-radius: 40px; z-index: 999; border-left: 4px solid #9C27B0; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+        .toast-notif.show { opacity: 1; }
+        footer { text-align: center; margin-top: 1.5rem; font-size: 0.6rem; color: rgba(255,255,255,0.3); }
+        input:not(#email), textarea { text-transform: uppercase; }
+        #email { text-transform: lowercase; }
+        .debug-info { font-size: 0.6rem; color: #ff6b6b; margin-top: 10px; text-align: center; display: none; }
+        .debug-info.show { display: block; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="logo"><div class="logo-icon"><i class="fas fa-cloud-upload-alt"></i></div><h1>MyRepublic</h1></div>
+        <div class="tagline">FIBER OPTIC | INTERNET SUPER CEPAT</div>
+        <div class="title-card"><h2>FORM PENDAFTARAN PEMASANGAN</h2><p>Internet Fiber Super Cepat untuk Rumah Anda</p></div>
+    </div>
+    <div class="form-card">
+        <form id="registrationForm">
+            <div class="form-group"><label><i class="fas fa-id-card"></i> NAMA LENGKAP (SESUAI KTP)</label><input type="text" id="nama" name="nama" placeholder="NAMA LENGKAP SESUAI KTP" required oninput="this.value = this.value.toUpperCase()"></div>
+            <div class="form-group"><label><i class="fas fa-map-marker-alt"></i> ALAMAT PEMASANGAN (HURUF KAPITAL)</label><textarea id="alamat" name="alamat" rows="2" placeholder="JL. CONTOH NO. 1, RT 001/RW 002, KELURAHAN, KECAMATAN, KOTA" required oninput="this.value = this.value.toUpperCase()"></textarea></div>
+            <div class="form-group"><label><i class="fas fa-phone-alt"></i> NOMOR HP</label><input type="tel" id="nohp" name="nohp" placeholder="08xxxxxxxxx" required oninput="this.value = this.value.toUpperCase()"></div>
+            <div class="form-group"><label><i class="fas fa-envelope"></i> GMAIL / EMAIL</label><input type="email" id="email" name="email" placeholder="nama@gmail.com" required oninput="this.value = this.value.toLowerCase()"></div>
+            <div class="form-group"><label><i class="fas fa-qrcode"></i> NIK KTP</label><input type="text" id="nik" name="nik" placeholder="16 digit NIK sesuai KTP" maxlength="16" required oninput="this.value = this.value.toUpperCase()"></div>
+            <div class="form-group"><label><i class="fas fa-map-pin"></i> LOKASI TERKINI</label><button type="button" class="location-btn" id="getLocationBtn"><i class="fas fa-crosshairs"></i> Ambil Lokasi Terkini</button><input type="hidden" id="latitude" name="latitude"><input type="hidden" id="longitude" name="longitude"><div class="location-info" id="locationInfo">📍 Belum mengambil lokasi</div></div>
+            <div class="form-group"><label><i class="fas fa-images"></i> FOTO RUMAH</label>
+                <div class="photo-grid">
+                    <div class="photo-item"><div class="photo-label"><i class="fas fa-home"></i> TAMPAK DEPAN</div><button type="button" class="camera-btn" data-target="fotoDepan"><i class="fas fa-camera"></i> Ketuk untuk buka kamera</button><input type="file" id="fotoDepan" name="foto_depan" accept="image/*" capture="environment" style="display:none" required><div class="file-name" id="depanFileName">Belum mengambil foto</div><img class="photo-preview" id="depanPreview"></div>
+                    <div class="photo-item"><div class="photo-label"><i class="fas fa-arrow-left"></i> SERONG KIRI</div><button type="button" class="camera-btn" data-target="fotoKiri"><i class="fas fa-camera"></i> Ketuk untuk buka kamera</button><input type="file" id="fotoKiri" name="foto_kiri" accept="image/*" capture="environment" style="display:none" required><div class="file-name" id="kiriFileName">Belum mengambil foto</div><img class="photo-preview" id="kiriPreview"></div>
+                    <div class="photo-item"><div class="photo-label"><i class="fas fa-arrow-right"></i> SERONG KANAN</div><button type="button" class="camera-btn" data-target="fotoKanan"><i class="fas fa-camera"></i> Ketuk untuk buka kamera</button><input type="file" id="fotoKanan" name="foto_kanan" accept="image/*" capture="environment" style="display:none" required><div class="file-name" id="kananFileName">Belum mengambil foto</div><img class="photo-preview" id="kananPreview"></div>
+                    <div class="photo-item"><div class="photo-label"><i class="fas fa-bolt"></i> METERAN LISTRIK</div><button type="button" class="camera-btn" data-target="fotoMeter"><i class="fas fa-camera"></i> Ketuk untuk buka kamera</button><input type="file" id="fotoMeter" name="foto_meter" accept="image/*" capture="environment" style="display:none" required><div class="file-name" id="meterFileName">Belum mengambil foto</div><img class="photo-preview" id="meterPreview"></div>
+                </div>
+                <div class="example-hint"><i class="fas fa-upload"></i> [Lahat Contoh] - Ketuk tombol kamera untuk mengambil foto langsung</div>
+            </div>
+            <div class="progress-bar" id="progressBar"><div class="progress-fill" id="progressFill"></div></div>
+            <button type="submit" class="submit-btn"><i class="fab fa-telegram-plane"></i> Kirim Pendaftaran</button>
+        </form>
+        <div class="debug-info" id="debugInfo"></div>
+    </div>
+    <footer>© MyRepublic Indonesia • Layanan Fiber Optic • Data Anda Aman</footer>
+</div>
+<div id="toastMsg" class="toast-notif"><i class="fas fa-check-circle"></i> <span id="toastText">Berhasil!</span></div>
+
+<script>
+    // Debug function
+    function debugLog(msg) {
+        const debugDiv = document.getElementById('debugInfo');
+        debugDiv.innerHTML += `[${new Date().toLocaleTimeString()}] ${msg}<br>`;
+        debugDiv.classList.add('show');
+        console.log(msg);
+        setTimeout(() => {
+            if(debugDiv.innerHTML.split('<br>').length > 10) {
+                debugDiv.innerHTML = debugDiv.innerHTML.split('<br>').slice(-5).join('<br>');
+            }
+        }, 100);
+    }
+
+    // Camera buttons
+    document.querySelectorAll('.camera-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            debugLog(`Membuka kamera untuk: ${targetId}`);
+            document.getElementById(targetId).click();
+        });
+    });
+
+    function handleFileSelect(inputId, previewId, fileNameId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const fileNameSpan = document.getElementById(fileNameId);
+        
+        input.addEventListener('change', () => {
+            if(input.files.length > 0) {
+                const file = input.files[0];
+                debugLog(`File dipilih untuk ${inputId}: ${file.name}, ukuran: ${(file.size/1024).toFixed(2)}KB`);
+                if(file.size > 5 * 1024 * 1024) { 
+                    showToast("❌ Ukuran foto maksimal 5MB!", true);
+                    debugLog(`ERROR: File terlalu besar: ${file.size} bytes`);
+                    input.value = ''; 
+                    fileNameSpan.innerText = "Belum mengambil foto"; 
+                    preview.classList.remove('show'); 
+                    return; 
+                }
+                fileNameSpan.innerText = file.name.length > 25 ? file.name.substring(0,22)+"..." : file.name;
+                const reader = new FileReader();
+                reader.onload = (e) => { 
+                    preview.src = e.target.result; 
+                    preview.classList.add('show');
+                    debugLog(`Preview berhasil dimuat untuk ${inputId}`);
+                };
+                reader.onerror = (err) => {
+                    debugLog(`ERROR membaca file ${inputId}: ${err}`);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+    
+    handleFileSelect('fotoDepan','depanPreview','depanFileName'); 
+    handleFileSelect('fotoKiri','kiriPreview','kiriFileName');
+    handleFileSelect('fotoKanan','kananPreview','kananFileName'); 
+    handleFileSelect('fotoMeter','meterPreview','meterFileName');
+    
+    // Location
+    document.getElementById('getLocationBtn').addEventListener('click', () => {
+        if(!navigator.geolocation) { 
+            showToast("❌ Browser tidak support geolokasi", true);
+            debugLog("ERROR: Browser tidak support geolokasi");
+            return; 
+        }
+        showToast("📡 Mengambil lokasi...");
+        debugLog("Mengambil lokasi...");
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                let lat = position.coords.latitude, lng = position.coords.longitude;
+                document.getElementById('latitude').value = lat; 
+                document.getElementById('longitude').value = lng;
+                document.getElementById('locationInfo').innerHTML = `📍 <strong>${lat}, ${lng}</strong><br>🗺 <a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank">Buka di Google Maps</a>`;
+                showToast("✅ Lokasi berhasil diambil!");
+                debugLog(`Lokasi berhasil: ${lat}, ${lng}`);
+            }, 
+            (error) => { 
+                let errorMsg = error.code === 1 ? "Akses ditolak" : error.code === 2 ? "Tidak tersedia" : "Timeout";
+                showToast(`❌ Gagal mengambil lokasi: ${errorMsg}`, true);
+                debugLog(`ERROR Lokasi: ${errorMsg} (code: ${error.code})`);
+            }, 
+            { enableHighAccuracy: true, timeout: 10000 }
+        );
+    });
+    
+    function validateForm() {
+        let nama = document.getElementById('nama').value.trim();
+        let alamat = document.getElementById('alamat').value.trim();
+        let nohp = document.getElementById('nohp').value.trim();
+        let email = document.getElementById('email').value.trim();
+        let nik = document.getElementById('nik').value.trim();
+        let lat = document.getElementById('latitude').value;
+        let lng = document.getElementById('longitude').value;
+        let fotoDepan = document.getElementById('fotoDepan').files.length;
+        let fotoKiri = document.getElementById('fotoKiri').files.length;
+        let fotoKanan = document.getElementById('fotoKanan').files.length;
+        let fotoMeter = document.getElementById('fotoMeter').files.length;
+        
+        debugLog(`Validasi: nama=${!!nama}, alamat=${!!alamat}, nohp=${!!nohp}, email=${!!email}, nik=${!!nik}, lat=${!!lat}, fotoDepan=${fotoDepan}, fotoKiri=${fotoKiri}, fotoKanan=${fotoKanan}, fotoMeter=${fotoMeter}`);
+        
+        if(!nama || !alamat || !nohp || !email || !nik) { showToast("⚠️ Semua field harus diisi!", true); return false; }
+        if(!/^\S+@\S+\.\S+$/.test(email)) { showToast("Email tidak valid!", true); return false; }
+        if(nohp.length < 9) { showToast("Nomor HP tidak valid!", true); return false; }
+        if(nik.length !== 16 || isNaN(nik)) { showToast("NIK KTP harus 16 digit angka!", true); return false; }
+        if(!lat || !lng) { showToast("Harap ambil lokasi terlebih dahulu!", true); return false; }
+        if(fotoDepan===0 || fotoKiri===0 || fotoKanan===0 || fotoMeter===0) { showToast("Harap ambil keempat foto menggunakan kamera!", true); return false; }
+        return true;
+    }
+    
+    function showToast(msg, isError = false) {
+        let toast = document.getElementById('toastMsg'), textSpan = document.getElementById('toastText');
+        textSpan.innerText = msg;
+        if(isError) { toast.style.borderLeftColor = "#ff4d4d"; toast.querySelector('i').className = "fas fa-exclamation-triangle"; } 
+        else { toast.style.borderLeftColor = "#9C27B0"; toast.querySelector('i').className = "fas fa-check-circle"; }
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+    
+    document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        debugLog("=== FORM SUBMITTED ===");
+        if(!validateForm()) return;
+        
+        let submitBtn = document.querySelector('.submit-btn'), progressBar = document.getElementById('progressBar'), progressFill = document.getElementById('progressFill');
+        let originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Mengirim...'; submitBtn.disabled = true;
+        progressBar.classList.add('active');
+        let progress = 0, interval = setInterval(() => { progress = Math.min(progress+10,90); progressFill.style.width = progress+'%'; }, 200);
+        
+        try {
+            let formData = new FormData(document.getElementById('registrationForm'));
+            
+            // Log jumlah file
+            let fileCount = 0;
+            for (let pair of formData.entries()) {
+                if(pair[1] instanceof File && pair[1].size > 0) {
+                    fileCount++;
+                    debugLog(`File dalam FormData: ${pair[0]} = ${pair[1].name} (${(pair[1].size/1024).toFixed(2)}KB)`);
+                }
+            }
+            debugLog(`Total file dalam FormData: ${fileCount}`);
+            
+            debugLog("Mengirim ke /.netlify/functions/submit");
+            let response = await fetch('/.netlify/functions/submit', { method: 'POST', body: formData });
+            let result = await response.json();
+            debugLog(`Response status: ${response.status}, result: ${JSON.stringify(result)}`);
+            
+            if(result.success) {
+                progressFill.style.width = '100%';
+                setTimeout(() => {
+                    showToast("✅ Pendaftaran berhasil! Admin akan menghubungi Anda.");
+                    debugLog("SUCCESS: Pendaftaran berhasil dikirim");
+                    document.getElementById('registrationForm').reset();
+                    document.getElementById('locationInfo').innerHTML = "📍 Belum mengambil lokasi";
+                    ['depanFileName','kiriFileName','kananFileName','meterFileName'].forEach(id => document.getElementById(id).innerText = "Belum mengambil foto");
+                    ['depanPreview','kiriPreview','kananPreview','meterPreview'].forEach(id => { let img = document.getElementById(id); img.classList.remove('show'); img.src = ""; });
+                }, 500);
+            } else { 
+                throw new Error(result.message || 'Gagal mengirim'); 
+            }
+        } catch(err) { 
+            debugLog(`ERROR: ${err.message}`);
+            showToast(`❌ Gagal: ${err.message}`, true); 
+        }
+        finally { 
+            clearInterval(interval); 
+            setTimeout(() => { 
+                submitBtn.innerHTML = originalText; 
+                submitBtn.disabled = false; 
+                progressBar.classList.remove('active'); 
+                progressFill.style.width = '0%'; 
+            }, 1000); 
+        }
+    });
+</script>
+</body>
+</html>
